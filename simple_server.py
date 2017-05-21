@@ -4,6 +4,10 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
+
+# this is our database
+# a database can be a simple object
+
 TODOS = {
     'todo1': {'task': 'build an API'},
     'todo2': {'task': '?????'},
