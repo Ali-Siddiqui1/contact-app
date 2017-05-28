@@ -17,33 +17,19 @@ def get_contact(contact_id):
     return jsonify({'contact': contact[0]})
 
 
-def update_contact(contact_id, first_name):
-    for (index, contact) in enumerate(contacts):
-        if contact["id"] == contact_id: 
-            contacts[index]["first_name"] = first_name
-
-
 def delete_contact(contact_id):
     for (index, contact) in enumerate(contacts):
         if contact["id"] == contact_id:
-            del contacts[contact_id]
+            del contacts[index]
 
 parser = reqparse.RequestParser()
 parser.add_argument('contacts')
 
 
 class Todo(Resource):
-    def get(self, todo_id):
-        return contacts, 200
-
     def delete(self, contact_id):
         print("id:", contact_id)
         delete_contact(int(contact_id))
-        return contacts, 200
-
-    def put(self, contact_id):
-        data = request.get_json(force=True)
-        update_contact(int(contact_id), data["first_name"])
         return contacts, 200
 
 

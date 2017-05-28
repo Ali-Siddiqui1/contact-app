@@ -11,32 +11,17 @@ function getUsers(apiEndPoint) {
 }
 
 function createUser() {
-    // get values of first name and last name
     firstName = $('#create_first_name').val();
-    // http post to create user
     $.ajax({
         type: "POST",
         url: apiEndPoint + '/contacts',
         data: JSON.stringify({
             'first_name': firstName
-        }
-        ),
+        }),
         success: function () {
             $('#createModal').modal('toggle');
+            getUsers(apiEndPoint);
         },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-    });
-}
-
-function updateUser() {
-    $.ajax({
-        type: "PUT",
-        url: apiEndPoint + '/contacts/' + 1,
-        data: JSON.stringify({
-            'first_name': 'changed'
-        }
-        ),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
     });
@@ -46,6 +31,9 @@ function deleteUser(id) {
     $.ajax({
         type: "DELETE",
         url: apiEndPoint + '/contacts/' + id,
+        success: function() {
+            getUsers(apiEndPoint);
+        }
     });
 }
 
@@ -55,5 +43,4 @@ function showCreateModal() {
 $(document).ready(function () {
     getUsers(apiEndPoint);
     $("#save_user_details").click(createUser);
-    $("#update_user_details").click(updateUser);
 });
